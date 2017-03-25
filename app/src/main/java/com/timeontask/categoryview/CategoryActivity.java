@@ -2,6 +2,7 @@ package com.timeontask.categoryview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.timeontask.R;
@@ -18,6 +19,7 @@ public class CategoryActivity extends AppCompatActivity {
 	private CategoryView categoryView;
 	private CategoryAdapter categoryAdapter;
 	private RecyclerView.LayoutManager layoutManager;
+	private DividerItemDecoration dividerItemDecoration;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +30,9 @@ public class CategoryActivity extends AppCompatActivity {
 
 		layoutManager = new LinearLayoutManager(this);
 		categoryView.setLayoutManager(layoutManager);
+
+		dividerItemDecoration = new DividerItemDecoration(categoryView.getContext(), DividerItemDecoration.VERTICAL);
+		categoryView.addItemDecoration(dividerItemDecoration);
 
 		categoryAdapter = new CategoryAdapter(new ArrayList<Task>());
 		categoryView.setAdapter(categoryAdapter);

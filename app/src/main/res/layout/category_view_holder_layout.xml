@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="@dimen/category_vertical_margin"
+		android:paddingBottom="@dimen/category_vertical_margin"
+		android:paddingLeft="@dimen/category_horizontal_margin"
+		android:paddingRight="@dimen/category_horizontal_margin"
+		android:stretchColumns="0">
+	<TableRow>
+		<TextView
+				android:textSize="24sp"
+				android:text="Category"/>
+		<TextView
+				android:gravity="right"
+				android:textSize="16sp"
+				android:text="Time (Percent)"/>
+	</TableRow>
+	<TableRow>
+		<View />
+		<TextView
+				android:gravity="right"
+				android:textSize="16sp"
+				android:text="Num tasks"/>
+	</TableRow>
+</TableLayout>
+<!--<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="match_parent"-->
+		<!--android:stretchColumns="*">-->
+	<!--<TableRow>-->
+		<!--<TextView-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="match_parent"-->
+				<!--android:text="Category name"/>-->
+		<!--<TextView-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="match_parent"-->
+				<!--android:text="Time spent (percent)"/>-->
+	<!--</TableRow>-->
+	<!--<TableRow>-->
+		<!--<TextView-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="match_parent"/>-->
+		<!--<TextView-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="match_parent"-->
+				<!--android:text="Number of tasks"/>-->
+	<!--</TableRow>-->
+<!--</TableLayout>-->
