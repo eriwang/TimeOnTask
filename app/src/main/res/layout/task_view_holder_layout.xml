@@ -12,19 +12,19 @@
 		android:paddingLeft="@dimen/category_horizontal_margin"
 		android:stretchColumns="0">
 		<TableRow>
-			<TextView
+			<TextView android:id="@+id/task_name"
 					android:textSize="24sp"
 					android:text="Task"/>
-			<TextView
+			<TextView android:id="@+id/start_time"
 					android:gravity="right"
 					android:textSize="16sp"
 					android:text="Start Time"/>
 		</TableRow>
 		<TableRow>
-			<TextView
+			<TextView android:id="@+id/task_date"
 					android:textSize="16sp"
 					android:text="Date"/>
-			<TextView
+			<TextView android:id="@+id/end_time"
 					android:gravity="right"
 					android:textSize="16sp"
 					android:text="End Time"/>

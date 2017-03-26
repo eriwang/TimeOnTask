@@ -32,8 +32,6 @@ public class CategoryActivity extends AppCompatActivity {
 		dividerItemDecoration = new DividerItemDecoration(categoryView.getContext(), DividerItemDecoration.VERTICAL);
 		categoryView.addItemDecoration(dividerItemDecoration);
 
-
-
 		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
 
 //		Task[] tasks = {

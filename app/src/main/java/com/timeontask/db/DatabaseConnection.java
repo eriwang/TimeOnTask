@@ -31,7 +31,7 @@ public class DatabaseConnection {
 
 	// TODO: split into different functions maybe
 	// TODO: add different ways to query, maybe with a "TaskQuery" object??
-	public ArrayList<Task> getTasks(Date startTime, Date endTime) {
+	public ArrayList<Task> getTasks(String category, Date startTime, Date endTime) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 		// TODO: _ID??
@@ -43,8 +43,9 @@ public class DatabaseConnection {
 		};
 
 		String selection = DatabaseContract.TaskTable.START_TIME + " >= ? AND " +
-			DatabaseContract.TaskTable.END_TIME + " <= ?";
-		String[] selectionArgs = {Long.toString(startTime.getTime()), Long.toString(endTime.getTime())};
+			DatabaseContract.TaskTable.END_TIME + " <= ? AND " +
+			DatabaseContract.TaskTable.CATEGORY + " = ?";
+		String[] selectionArgs = {Long.toString(startTime.getTime()), Long.toString(endTime.getTime()), category};
 
 		// TODO: sort order??
 
@@ -61,12 +62,16 @@ public class DatabaseConnection {
 		ArrayList<Task> results = new ArrayList<>();
 		while (cursor.moveToNext()) {
 			String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.TASK_NAME));
-			String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.CATEGORY));
+			String cat = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.CATEGORY)); // TODO: remove
 			long start = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.START_TIME));
 			long end = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.END_TIME));
 
-			results.add(new Task(name, category, start, end));
+			results.add(new Task(name, cat, start, end));
 		}
+
+		System.out.println(results);
+
+		cursor.close();
 
 		return results;
 	}
@@ -92,6 +97,7 @@ public class DatabaseConnection {
 		return categories;
 	}
 
+	// FIXME: make sure this works
 	public ArrayList<Category> getCategoriesInformation(List<String> categories) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		String sql = "SELECT COUNT(*), SUM(? - ?) FROM ? WHERE ? = ?";

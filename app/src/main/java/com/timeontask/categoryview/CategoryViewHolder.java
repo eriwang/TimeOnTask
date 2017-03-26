@@ -12,39 +12,40 @@ import java.util.Locale;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 	private TextView nameView;
-		private TextView timeView;
-		private TextView numTasksView;
+	private TextView timeView;
+	private TextView numTasksView;
 
-		public CategoryViewHolder(View v) {
-			super(v);
+	public CategoryViewHolder(View v) {
+		super(v);
 
-			nameView = (TextView) v.findViewById(R.id.category_name);
-			timeView = (TextView) v.findViewById(R.id.total_time_spent);
-			numTasksView = (TextView) v.findViewById(R.id.num_tasks);
+		nameView = (TextView) v.findViewById(R.id.category_name);
+		timeView = (TextView) v.findViewById(R.id.total_time_spent);
+		numTasksView = (TextView) v.findViewById(R.id.num_tasks);
 
-			v.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(v.getContext(), "I was clicked!", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(v.getContext(), TaskActivity.class);
+		v.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(v.getContext(), "I was clicked!", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(v.getContext(), TaskActivity.class);
+				intent.putExtra("category", nameView.getText()); // TODO: constant instead of hard code string
 
-					v.getContext().startActivity(intent);
-				}
-			});
+				v.getContext().startActivity(intent);
+			}
+		});
 
-			// TODO: edit the category
-			v.setOnLongClickListener(new View.OnLongClickListener() {
-				@Override
-				public boolean onLongClick(View v) {
-					Toast.makeText(v.getContext(), "I was long clicked!", Toast.LENGTH_SHORT).show();
-					return true;
-				}
-			});
-		}
+		// TODO: edit the category
+		v.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				Toast.makeText(v.getContext(), "I was long clicked!", Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
+	}
 
-		public void changeText(String category, int time, int numTasks) {
-			nameView.setText(category);
-			timeView.setText(String.format(Locale.ENGLISH, "%d", time)); // FIXME
-			numTasksView.setText(String.format(Locale.ENGLISH, "%d Tasks", numTasks));
-		}
+	public void changeText(String category, int time, int numTasks) {
+		nameView.setText(category);
+		timeView.setText(String.format(Locale.ENGLISH, "%d", time)); // FIXME
+		numTasksView.setText(String.format(Locale.ENGLISH, "%d Tasks", numTasks));
+	}
 }
