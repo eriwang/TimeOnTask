@@ -6,10 +6,8 @@ import android.view.View;
 import android.widget.*;
 import com.timeontask.R;
 import com.timeontask.db.DatabaseConnection;
-import com.timeontask.db.Task;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TimerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 	DatabaseConnection db;
@@ -75,5 +73,9 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
+	}
+
+	public void startTimer(View view) {
+
 	}
 }
