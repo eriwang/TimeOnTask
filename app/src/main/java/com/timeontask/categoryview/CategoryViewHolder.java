@@ -26,7 +26,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 		v.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(v.getContext(), "I was clicked!", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(v.getContext(), TaskActivity.class);
 				intent.putExtra("category", nameView.getText()); // TODO: constant instead of hard code string
 
