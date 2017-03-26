@@ -35,18 +35,18 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 		});
 
 		// TODO: edit the category
-		v.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				Toast.makeText(v.getContext(), "I was long clicked!", Toast.LENGTH_SHORT).show();
-				return true;
-			}
-		});
+//		v.setOnLongClickListener(new View.OnLongClickListener() {
+//			@Override
+//			public boolean onLongClick(View v) {
+//				Toast.makeText(v.getContext(), "I was long clicked!", Toast.LENGTH_SHORT).show();
+//				return true;
+//			}
+//		});
 	}
 
 	public void changeText(Category category) {
 		nameView.setText(category.name);
-		timeView.setText(String.format(Locale.getDefault(), "%.2f Hours", category.time)); // FIXME
+		timeView.setText(String.format(Locale.getDefault(), "%.2f Hours", category.time));
 		numTasksView.setText(String.format(Locale.getDefault(), "%d Tasks", category.numTasks));
 	}
 }
