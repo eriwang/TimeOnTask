@@ -12,27 +12,57 @@
 		android:orientation="vertical"
 		tools:context="com.timeontask.timerview.TimerActivity">
 	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:orientation="vertical">
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="4dp"
 			android:orientation="horizontal">
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Category:"/>
-		<Spinner
+			<TextView
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"/>
-	</LinearLayout>
-	<LinearLayout
+				android:layout_height="wrap_content"
+				android:paddingRight="@dimen/category_horizontal_margin"
+				android:textSize="24sp"
+				android:text="Category:"/>
+			<Spinner android:id="@+id/category_spinner"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="24sp"/>
+		</LinearLayout>
+		<EditText
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
-		<TextView
-			android:layout_width="wrap_content"
+			android:layout_marginBottom="4dp"
+			android:lines="1"
+			android:enabled="false"/>
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="Category:"/>
-		<Spinner
+			android:layout_marginBottom="4dp"
+			android:orientation="horizontal">
+			<TextView
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"/>
+				android:layout_height="wrap_content"
+				android:paddingRight="@dimen/category_horizontal_margin"
+				android:textSize="24sp"
+				android:text="Task:"/>
+			<Spinner android:id="@+id/task_spinner"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:enabled="false"/>
+		</LinearLayout>
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:lines="1"
+			android:enabled="false"/>
 	</LinearLayout>
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/colorPrimaryDark"/>
 </LinearLayout>

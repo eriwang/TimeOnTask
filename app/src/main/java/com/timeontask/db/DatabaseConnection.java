@@ -34,30 +34,23 @@ public class DatabaseConnection {
 	public ArrayList<Task> getTasks(String category, Date startTime, Date endTime) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-		// TODO: _ID??
-		String[] projection = {
+		String sql = String.format(Locale.ENGLISH,
+			"SELECT %s, %s, %s, %s FROM %s WHERE %s >= %d AND %s <= %d AND %s = '%s' ORDER BY %s ASC",
 			DatabaseContract.TaskTable.TASK_NAME,
+			DatabaseContract.TaskTable.TABLE_NAME,
 			DatabaseContract.TaskTable.CATEGORY,
 			DatabaseContract.TaskTable.START_TIME,
-			DatabaseContract.TaskTable.END_TIME
-		};
-
-		String selection = DatabaseContract.TaskTable.START_TIME + " >= ? AND " +
-			DatabaseContract.TaskTable.END_TIME + " <= ? AND " +
-			DatabaseContract.TaskTable.CATEGORY + " = ?";
-		String[] selectionArgs = {Long.toString(startTime.getTime()), Long.toString(endTime.getTime()), category};
-
-		// TODO: sort order??
-
-		Cursor cursor = db.query(
-			DatabaseContract.TaskTable.TABLE_NAME,
-			projection,
-			selection,
-			selectionArgs,
-			null,
-			null,
-			null
+			DatabaseContract.TaskTable.END_TIME,
+			DatabaseContract.TaskTable.START_TIME,
+			startTime.getTime(),
+			DatabaseContract.TaskTable.END_TIME,
+			endTime.getTime(),
+			DatabaseContract.TaskTable.CATEGORY,
+			category,
+			DatabaseContract.TaskTable.CATEGORY
 		);
+
+		Cursor cursor = db.rawQuery(sql, null);
 
 		ArrayList<Task> results = new ArrayList<>();
 		while (cursor.moveToNext()) {
@@ -74,6 +67,32 @@ public class DatabaseConnection {
 		cursor.close();
 
 		return results;
+	}
+
+	public ArrayList<String> getTaskNames(String category) {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+		String sql = String.format(Locale.ENGLISH,
+			"SELECT %s FROM %s WHERE %s = '%s' GROUP BY %s ORDER BY %s ASC",
+			DatabaseContract.TaskTable.TASK_NAME,
+			DatabaseContract.TaskTable.TABLE_NAME,
+			DatabaseContract.TaskTable.CATEGORY,
+			category,
+			DatabaseContract.TaskTable.TASK_NAME,
+			DatabaseContract.TaskTable.TASK_NAME
+		);
+
+		Cursor cursor = db.rawQuery(sql, null);
+
+		ArrayList<String> taskNames = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			String taskName = cursor.getString(0);
+			taskNames.add(taskName);
+			System.out.println(taskName);
+		}
+		cursor.close();
+
+		return taskNames;
 	}
 
 	// FIXME: get rid of this
