@@ -86,9 +86,7 @@ public class DatabaseConnection {
 
 		ArrayList<String> taskNames = new ArrayList<>();
 		while (cursor.moveToNext()) {
-			String taskName = cursor.getString(0);
-			taskNames.add(taskName);
-			System.out.println(taskName);
+			taskNames.add(cursor.getString(0));
 		}
 		cursor.close();
 

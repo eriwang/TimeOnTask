@@ -3,10 +3,7 @@ package com.timeontask.timerview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import com.timeontask.R;
 import com.timeontask.db.DatabaseConnection;
 import com.timeontask.db.Task;
@@ -18,6 +15,8 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 	DatabaseConnection db;
 	Spinner categorySpinner;
 	Spinner taskNameSpinner;
+	EditText categoryEditText;
+	EditText taskNameEditText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +25,8 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 
 		categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 		taskNameSpinner = (Spinner) findViewById(R.id.task_spinner);
+		categoryEditText = (EditText) findViewById(R.id.category_edit_text);
+		taskNameEditText = (EditText) findViewById(R.id.task_edit_text);
 
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, R.layout.spinner_item);
 
@@ -38,14 +39,24 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 		categorySpinner.setOnItemSelectedListener(this);
 	}
 
+	// TODO: clean up
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		if (parent.getId() == R.id.category_spinner) {
 			String category = (String) parent.getItemAtPosition(position);
 			if (category.equals("New Category")) {
-				// TODO
+				categoryEditText.setEnabled(true);
+				taskNameEditText.setEnabled(true);
+
+				ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, R.layout.spinner_item);
+				adapter.add("New Task");
+
+				taskNameSpinner.setAdapter(adapter);
+				taskNameSpinner.setOnItemSelectedListener(this);
 			}
 			else {
+				categoryEditText.setEnabled(false);
+				taskNameEditText.setEnabled(false);
 				// TODO: reused code
 				ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, R.layout.spinner_item);
 				ArrayList<String> taskNames = db.getTaskNames(category);
@@ -55,6 +66,10 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 				taskNameSpinner.setAdapter(adapter);
 				taskNameSpinner.setOnItemSelectedListener(this);
 			}
+		}
+		else {
+			String task = (String) parent.getItemAtPosition(position);
+			taskNameEditText.setEnabled(task.equals("New Task"));
 		}
 	}
 
