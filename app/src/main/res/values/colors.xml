@@ -3,4 +3,11 @@
 	<color name="colorPrimary">#3F51B5</color>
 	<color name="colorPrimaryDark">#303F9F</color>
 	<color name="colorAccent">#FF4081</color>
+	<color name="pie_chart_green">#64FFDA</color>
+	<color name="pie_chart_blue">#40C4FF</color>
+	<color name="pie_chart_pink">#FF4081</color>
+	<color name="pie_chart_red">#FF1744</color>
+	<color name="pie_chart_purple">#D500F9</color>
+	<color name="main_background">#FFFFFF</color>
+	<color name="white">#000000</color>
 </resources>
