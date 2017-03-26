@@ -6,21 +6,19 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.timeontask.R;
+import com.timeontask.db.DatabaseConnection;
 import com.timeontask.db.Task;
 
 import java.util.ArrayList;
-//import com.timeontask.db.Task;
-//import com.timeontask.db.TaskTableConnection;
-//
-//import java.util.Date;
-//import java.util.List;
+import java.util.Date;
 
 public class CategoryActivity extends AppCompatActivity {
-	private CategoryView categoryView;
+	private CategoryView categoryView; // TODO: do I even need to extend it??
 	private CategoryAdapter categoryAdapter;
 	private RecyclerView.LayoutManager layoutManager;
 	private DividerItemDecoration dividerItemDecoration;
 
+	// TODO: do I even need these member variables??
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_category_view);
@@ -34,7 +32,27 @@ public class CategoryActivity extends AppCompatActivity {
 		dividerItemDecoration = new DividerItemDecoration(categoryView.getContext(), DividerItemDecoration.VERTICAL);
 		categoryView.addItemDecoration(dividerItemDecoration);
 
-		categoryAdapter = new CategoryAdapter(new ArrayList<Task>());
+
+
+		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
+
+//		Task[] tasks = {
+//			new Task("DoTA", "Gaming", new Date().getTime(), new Date().getTime()),
+//			new Task("LoL", "Gaming", new Date().getTime(), new Date().getTime()),
+//			new Task("Maple Story", "Gaming", new Date().getTime(), new Date().getTime()),
+//			new Task("EECS 482", "Class", new Date().getTime(), new Date().getTime()),
+//			new Task("EECS 485", "Class", new Date().getTime(), new Date().getTime()),
+//			new Task("STATS 413", "Class", new Date().getTime(), new Date().getTime()),
+//			new Task("MATH 423", "Class", new Date().getTime(), new Date().getTime()),
+//			new Task("TCHNCLCM 300", "Class", new Date().getTime(), new Date().getTime()),
+//			new Task("Sleep", "Misc", new Date().getTime(), new Date().getTime())
+//		};
+//
+//		for (Task t : tasks) {
+//			db.addTask(t);
+//		}
+
+		categoryAdapter = new CategoryAdapter(db.getCategories());
 		categoryView.setAdapter(categoryAdapter);
 	}
 }

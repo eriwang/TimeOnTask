@@ -2,10 +2,10 @@ package com.timeontask.db;
 
 import android.provider.BaseColumns;
 
-public class TaskTableContract {
-	private TaskTableContract() {}
+public class DatabaseContract {
+	private DatabaseContract() {}
 
-	public static class TaskEntry implements BaseColumns {
+	public static class TaskTable implements BaseColumns {
 		public static final String TABLE_NAME = "tasks";
 		public static final String TASK_NAME = "task_name";
 		public static final String CATEGORY = "category";
