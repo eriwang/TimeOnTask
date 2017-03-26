@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -38,8 +39,9 @@ public class GenerateNewEntry extends AppCompatActivity {
         setContentView(R.layout.new_entry);
         dbConnection= new TaskTableConnection(getApplicationContext());
         Spinner categories_spinner = (Spinner) findViewById(R.id.categories_spinner);
-        Spinner names_spinner = (Spinner) findViewById(R.id.names_spinner);
-
+        final Spinner names_spinner = (Spinner) findViewById(R.id.names_spinner);
+        final EditText categories_edit_text = (EditText) findViewById(R.id.categories_edit_text);
+        final EditText names_edit_text = (EditText) findViewById(R.id.names_edt_text);
 
         Button entry_button = (Button)findViewById(R.id.submit_button);
         entry_button.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +70,7 @@ public class GenerateNewEntry extends AppCompatActivity {
 
 
 
-        ArrayAdapter<String> categories_adapter = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> categories_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, categories_array);
         ArrayAdapter<String> names_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, names_array);
@@ -82,8 +84,17 @@ public class GenerateNewEntry extends AppCompatActivity {
                                        int position, long id) {
                 selected_category =  (String) parent.getItemAtPosition(position);
 
-                if(selected_name == "new entry"){
+                if(selected_name.equals("new entry")) {
+                    categories_edit_text.setVisibility(View.VISIBLE);
+                    names_spinner.setVisibility(View.GONE);
+                    names_edit_text.setVisibility(View.GONE);
                     new_entry_alert();
+                } else {
+                    categories_edit_text.setVisibility(View.GONE);
+                    names_spinner.setVisibility(View.VISIBLE);
+                    // TODO: update names_array
+                    categories_adapter.notifyDataSetChanged();
+                    // TODO: set visiblity of names_edit_text
                 }
 
                 Log.v("item", (String) parent.getItemAtPosition(position));
@@ -100,7 +111,8 @@ public class GenerateNewEntry extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 selected_name =  (String) parent.getItemAtPosition(position);
-                if(selected_name == "new entry"){
+                if(selected_name.equals("new entry")) {
+                    names_edit_text.setVisibility(View.VISIBLE));
                     new_entry_alert();
                 }
                 Log.v("item", (String) parent.getItemAtPosition(position));

@@ -128,8 +128,9 @@ public class OpenPage extends AppCompatActivity {
                 R.color.pie_chart_red}, getApplicationContext());
 
         PieData data = new PieData(dataset);
-
-        data.setValueTextColor(Color.WHITE);
+7
+        data.setValueTextColor(Color.BLACK);
+        piechart.setEntryLabelColor(Color.BLACK);
         data.setValueTextSize(30f);
         piechart.setData(data);
         piechart.setEntryLabelTextSize(20f);
