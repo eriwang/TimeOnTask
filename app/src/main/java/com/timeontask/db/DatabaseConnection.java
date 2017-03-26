@@ -76,6 +76,37 @@ public class DatabaseConnection {
 		return results;
 	}
 
+	// FIXME: get rid of this
+	public ArrayList<Task> getAllTasksHack() {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+		// TODO: _ID??
+		String[] projection = {
+			DatabaseContract.TaskTable.TASK_NAME,
+			DatabaseContract.TaskTable.CATEGORY,
+			DatabaseContract.TaskTable.START_TIME,
+			DatabaseContract.TaskTable.END_TIME
+		};
+
+		Cursor cursor = db.query(DatabaseContract.TaskTable.TABLE_NAME,	projection,	null, null, null, null,	null);
+
+		ArrayList<Task> results = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.TASK_NAME));
+			String cat = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.CATEGORY));
+			long start = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.START_TIME));
+			long end = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.END_TIME));
+
+			results.add(new Task(name, cat, start, end));
+		}
+
+		System.out.println(results);
+
+		cursor.close();
+
+		return results;
+	}
+
 	// TODO: generate list of categories first, then asynchronously update the data for them??
 	public ArrayList<String> getCategories() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();

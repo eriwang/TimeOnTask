@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.timeontask.db.Task;
-import com.timeontask.db.TaskTableConnection;
+import com.timeontask.db.DatabaseConnection;
 
 import java.util.Date;
 import java.util.List;
@@ -29,13 +29,13 @@ import java.util.Map;
 
 public class OpenPage extends AppCompatActivity {
 
-    TaskTableConnection dbConnection;
+    DatabaseConnection dbConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-        dbConnection= new TaskTableConnection(getApplicationContext());
+        dbConnection= new DatabaseConnection(getApplicationContext());
         Task[] tasks = {
                 new Task("DoTA", "Gaming", new Date(10).getTime(), new Date(100).getTime()),
                 new Task("LoL", "Gaming", new Date(10).getTime(), new Date(100).getTime()),
@@ -63,6 +63,7 @@ public class OpenPage extends AppCompatActivity {
         GeneratePieChart("TimeOnTask");
     }
 
+	// FIXME: fix everything
     void GeneratePieChart(String centertext){
         PieChart piechart = (PieChart) findViewById(R.id.piechart);
 
@@ -79,7 +80,7 @@ public class OpenPage extends AppCompatActivity {
         colors_list.add(R.color.pie_chart_red);
         colors_list.add(R.color.pie_chart_purple);
 
-        List<Task> taskList = dbConnection.getTasks(new Date(6), new Date());
+        List<Task> taskList = dbConnection.getAllTasksHack();
 
         for (Task t : taskList) {
 			System.out.println(t);
@@ -88,7 +89,7 @@ public class OpenPage extends AppCompatActivity {
         Map<String, Integer> categories = new HashMap();
         for (Task t : taskList){
             String category = t.category;
-            long time_spent = t.endTime;
+            long time_spent = t.duration;
             //System.out.print("LULULLULLUL\n");
             //System.out.print(time_spent);
             long divide_factor = 1000;
@@ -128,7 +129,6 @@ public class OpenPage extends AppCompatActivity {
                 R.color.pie_chart_red}, getApplicationContext());
 
         PieData data = new PieData(dataset);
-7
         data.setValueTextColor(Color.BLACK);
         piechart.setEntryLabelColor(Color.BLACK);
         data.setValueTextSize(30f);

@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timeontask.db.Task;
-import com.timeontask.db.TaskTableConnection;
+import com.timeontask.db.DatabaseConnection;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,19 +25,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static android.support.v7.appcompat.R.styleable.AlertDialog;
+
 /**
  * Created by Bo on 3/25/2017.
  */
 
 public class GenerateNewEntry extends AppCompatActivity {
-    TaskTableConnection dbConnection;
-    String selected_category;
-    String selected_name;
+    DatabaseConnection dbConnection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_entry);
-        dbConnection= new TaskTableConnection(getApplicationContext());
+        dbConnection= new DatabaseConnection(getApplicationContext());
         Spinner categories_spinner = (Spinner) findViewById(R.id.categories_spinner);
         final Spinner names_spinner = (Spinner) findViewById(R.id.names_spinner);
         final EditText categories_edit_text = (EditText) findViewById(R.id.categories_edit_text);
@@ -52,7 +52,7 @@ public class GenerateNewEntry extends AppCompatActivity {
             }
         });
 
-        List<Task> taskList = dbConnection.getTasks(new Date(6), new Date());
+        List<Task> taskList = dbConnection.getAllTasksHack();
         Map<String, Integer> categories = new HashMap();
         Map<String, Integer> names = new HashMap();
 
@@ -82,9 +82,9 @@ public class GenerateNewEntry extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                selected_category =  (String) parent.getItemAtPosition(position);
+                String selected_category =  (String) parent.getItemAtPosition(position);
 
-                if(selected_name.equals("new entry")) {
+                if(selected_category.equals("new entry")) {
                     categories_edit_text.setVisibility(View.VISIBLE);
                     names_spinner.setVisibility(View.GONE);
                     names_edit_text.setVisibility(View.GONE);
@@ -110,9 +110,9 @@ public class GenerateNewEntry extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                selected_name =  (String) parent.getItemAtPosition(position);
+                String selected_name =  (String) parent.getItemAtPosition(position);
                 if(selected_name.equals("new entry")) {
-                    names_edit_text.setVisibility(View.VISIBLE));
+                    names_edit_text.setVisibility(View.VISIBLE);
                     new_entry_alert();
                 }
                 Log.v("item", (String) parent.getItemAtPosition(position));

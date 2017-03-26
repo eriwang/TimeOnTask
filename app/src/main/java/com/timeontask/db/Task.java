@@ -9,6 +9,7 @@ public class Task {
 	public String date;
 	public String startTime;
 	public String endTime;
+	public long duration;
 
 	public Task(String _name, String _category, long _startTime, long _endTime) {
 		name = _name;
@@ -18,6 +19,7 @@ public class Task {
 		date = SimpleDateFormat.getDateInstance().format(actualStartDate);
 		startTime = SimpleDateFormat.getTimeInstance().format(actualStartDate);
 		endTime = SimpleDateFormat.getTimeInstance().format(actualEndDate);
+		duration = _endTime - _startTime;
 	}
 
 	public String toString() {
