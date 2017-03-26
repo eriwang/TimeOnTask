@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DatabaseConnection {
 	private DatabaseOpenHelper dbHelper;
@@ -100,19 +101,20 @@ public class DatabaseConnection {
 	// FIXME: make sure this works
 	public ArrayList<Category> getCategoriesInformation(List<String> categories) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		String sql = "SELECT COUNT(*), SUM(? - ?) FROM ? WHERE ? = ?";
 
 		ArrayList<Category> results = new ArrayList<>();
 
 		for (String category : categories) {
-			String[] sqlArgs = {
+			String sql = String.format(Locale.ENGLISH,
+				"SELECT COUNT(*), SUM(%s - %s) FROM %s WHERE %s = '%s'",
 				DatabaseContract.TaskTable.END_TIME,
 				DatabaseContract.TaskTable.START_TIME,
 				DatabaseContract.TaskTable.TABLE_NAME,
 				DatabaseContract.TaskTable.CATEGORY,
 				category
-			};
-			Cursor cursor = db.rawQuery(sql, sqlArgs);
+			);
+			Cursor cursor = db.rawQuery(sql, null);
+			cursor.moveToFirst();
 			int count = cursor.getInt(0);
 			int duration = cursor.getInt(1);
 			cursor.close();

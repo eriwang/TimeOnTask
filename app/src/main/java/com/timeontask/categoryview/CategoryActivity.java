@@ -50,7 +50,7 @@ public class CategoryActivity extends AppCompatActivity {
 //			db.addTask(t);
 //		}
 
-		categoryAdapter = new CategoryAdapter(db.getCategories());
+		categoryAdapter = new CategoryAdapter(db.getCategoriesInformation(db.getCategories()));
 		categoryView.setAdapter(categoryAdapter);
 	}
 }

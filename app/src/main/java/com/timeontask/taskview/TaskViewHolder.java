@@ -25,8 +25,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
 	public void changeText(Task t) {
 		nameView.setText(t.name);
-		dateView.setText(new Date().toString());
-		startTimeView.setText(new Date().toString());
-		endTimeView.setText(new Date().toString());
+		dateView.setText(t.date);
+		startTimeView.setText(t.startTime);
+		endTimeView.setText(t.endTime);
 	}
 }

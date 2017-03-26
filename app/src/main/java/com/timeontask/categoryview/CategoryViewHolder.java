@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.timeontask.R;
+import com.timeontask.db.Category;
 import com.timeontask.taskview.TaskActivity;
 
 import java.util.Locale;
@@ -43,9 +44,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 		});
 	}
 
-	public void changeText(String category, int time, int numTasks) {
-		nameView.setText(category);
-		timeView.setText(String.format(Locale.ENGLISH, "%d", time)); // FIXME
-		numTasksView.setText(String.format(Locale.ENGLISH, "%d Tasks", numTasks));
+	public void changeText(Category category) {
+		nameView.setText(category.name);
+		timeView.setText(String.format(Locale.getDefault(), "%.2f Hours", category.time)); // FIXME
+		numTasksView.setText(String.format(Locale.getDefault(), "%d Tasks", category.numTasks));
 	}
 }
