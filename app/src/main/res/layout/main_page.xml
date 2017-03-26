@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="@color/main_background"
+    tools:context=".OpenPage">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.18"
+        android:gravity = "center"/>
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.82"
+        android:gravity="center"
+        android:text="New Task"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@drawable/button_custom"
+        />
+</LinearLayout>
+
