@@ -11,16 +11,17 @@
 		<activity android:name=".OpenPage">
     	</activity>
 		<activity android:name=".categoryview.CategoryActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
 		</activity>
 		<activity android:name=".GenerateNewEntry">
     	</activity>
 		<activity android:name=".taskview.TaskActivity">
 		</activity>
 		<activity android:name=".timerview.TimerActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
+
 		</activity>
 	</application>
 

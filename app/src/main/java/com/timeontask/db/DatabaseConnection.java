@@ -47,17 +47,19 @@ public class DatabaseConnection {
 			endTime.getTime(),
 			DatabaseContract.TaskTable.CATEGORY,
 			category,
-			DatabaseContract.TaskTable.CATEGORY
+			DatabaseContract.TaskTable.TASK_NAME
 		);
+
+		System.out.println(sql);
 
 		Cursor cursor = db.rawQuery(sql, null);
 
 		ArrayList<Task> results = new ArrayList<>();
 		while (cursor.moveToNext()) {
-			String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.TASK_NAME));
-			String cat = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.CATEGORY)); // TODO: remove
-			long start = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.START_TIME));
-			long end = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TaskTable.END_TIME));
+			String name = cursor.getString(0);
+			String cat = cursor.getString(1);
+			long start = cursor.getLong(2);
+			long end = cursor.getLong(3);
 
 			results.add(new Task(name, cat, start, end));
 		}
@@ -170,5 +172,22 @@ public class DatabaseConnection {
 		}
 
 		return results;
+	}
+
+	public boolean isTimingActive() {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+		String sql = String.format(Locale.ENGLISH,
+			"SELECT COUNT(*) FROM %s",
+			DatabaseContract.TimingTable.TABLE_NAME
+		);
+
+		Cursor cursor = db.rawQuery(sql, null);
+
+		cursor.moveToFirst();
+		int count = cursor.getInt(0);
+		cursor.close();
+
+		return count > 0;
 	}
 }

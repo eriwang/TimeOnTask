@@ -16,12 +16,20 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			DatabaseContract.TaskTable.START_TIME + " INTEGER," +
 			DatabaseContract.TaskTable.END_TIME + " INTEGER)";
 
+	private static final String CREATE_TIMING =
+		"CREATE TABLE " + DatabaseContract.TimingTable.TABLE_NAME + " (" +
+			DatabaseContract.TimingTable._ID + " INTEGER PRIMARY KEY," +
+			DatabaseContract.TimingTable.TASK_NAME + " TEXT," +
+			DatabaseContract.TimingTable.CATEGORY + " TEXT," +
+			DatabaseContract.TimingTable.START_TIME + " INTEGER)";
+
 	public DatabaseOpenHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
 
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_ENTRIES);
+		db.execSQL(CREATE_TIMING);
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

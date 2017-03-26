@@ -60,11 +60,11 @@
 			android:lines="1"
 			android:enabled="false"/>
 	</LinearLayout>
-	<Button
+	<Button android:id="@+id/start"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		android:backgroundTint="@color/pie_chart_blue"
+		android:background="@color/pie_chart_blue"
 		android:textSize="48sp"
 		android:text="Start"
 		android:onClick="startTimer"/>

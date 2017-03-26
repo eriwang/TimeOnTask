@@ -12,4 +12,11 @@ public class DatabaseContract {
 		public static final String START_TIME = "start";
 		public static final String END_TIME = "end";
 	}
+
+	public static class TimingTable implements BaseColumns {
+		public static final String TABLE_NAME = "timing_task";
+		public static final String TASK_NAME = "task_name";
+		public static final String CATEGORY = "category";
+		public static final String START_TIME = "start";
+	}
 }
