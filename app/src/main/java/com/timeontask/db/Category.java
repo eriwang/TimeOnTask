@@ -9,7 +9,7 @@ public class Category {
 
 	public Category(String _name, long _time, long _numTasks) {
 		name = _name;
-		time = (double) _time / 1000 * 60 * 60;
+		time = (double) _time / (1000 * 60 * 60);
 		numTasks = _numTasks;
 	}
 }

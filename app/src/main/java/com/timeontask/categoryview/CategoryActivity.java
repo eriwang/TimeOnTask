@@ -10,6 +10,7 @@ import com.timeontask.db.DatabaseConnection;
 import com.timeontask.db.Task;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -34,16 +35,17 @@ public class CategoryActivity extends AppCompatActivity {
 
 		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
 
+
 //		Task[] tasks = {
-//			new Task("DoTA", "Gaming", new Date().getTime(), new Date().getTime()),
-//			new Task("LoL", "Gaming", new Date().getTime(), new Date().getTime()),
-//			new Task("Maple Story", "Gaming", new Date().getTime(), new Date().getTime()),
-//			new Task("EECS 482", "Class", new Date().getTime(), new Date().getTime()),
-//			new Task("EECS 485", "Class", new Date().getTime(), new Date().getTime()),
-//			new Task("STATS 413", "Class", new Date().getTime(), new Date().getTime()),
-//			new Task("MATH 423", "Class", new Date().getTime(), new Date().getTime()),
-//			new Task("TCHNCLCM 300", "Class", new Date().getTime(), new Date().getTime()),
-//			new Task("Sleep", "Misc", new Date().getTime(), new Date().getTime())
+//			new Task("DoTA", "Gaming", new Date(117, 3, 31, 5, 0).getTime(), new Date(117, 3, 31, 6, 0).getTime()),
+//			new Task("LoL", "Gaming", new Date(117, 3, 31, 6, 0).getTime(), new Date(117, 3, 31, 7, 0).getTime()),
+//			new Task("Maple Story", "Gaming", new Date(117, 3, 31, 7, 0).getTime(), new Date(117, 3, 31, 8, 0).getTime()),
+//			new Task("EECS 482", "Class", new Date(117, 3, 31, 8, 0).getTime(), new Date(117, 3, 31, 20, 0).getTime()),
+//			new Task("EECS 485", "Class", new Date(117, 3, 31, 20, 0).getTime(), new Date(117, 3, 31, 20, 1).getTime()),
+//			new Task("STATS 413", "Class", new Date(117, 3, 31, 20, 1).getTime(), new Date(117, 3, 31, 20, 2).getTime()),
+//			new Task("MATH 423", "Class", new Date(117, 3, 31, 20, 2).getTime(), new Date(117, 3, 31, 20, 3).getTime()),
+//			new Task("TCHNCLCM 300", "Class", new Date(117, 3, 31, 20, 3).getTime(), new Date(117, 3, 31, 20, 4).getTime()),
+//			new Task("Sleep", "Misc", new Date(117, 3, 31, 20, 4).getTime(), new Date(117, 3, 31, 23, 59).getTime())
 //		};
 //
 //		for (Task t : tasks) {

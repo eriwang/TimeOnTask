@@ -9,10 +9,10 @@ import com.timeontask.db.Task;
 import java.util.Date;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
-	TextView nameView;
-	TextView dateView;
-	TextView startTimeView;
-	TextView endTimeView;
+	private TextView nameView;
+	private TextView dateView;
+	private TextView startTimeView;
+	private TextView endTimeView;
 
 	public TaskViewHolder(View v) {
 		super(v);

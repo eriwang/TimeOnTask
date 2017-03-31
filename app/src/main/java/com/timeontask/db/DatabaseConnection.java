@@ -23,8 +23,8 @@ public class DatabaseConnection {
 		ContentValues values = new ContentValues();
 		values.put(DatabaseContract.TaskTable.TASK_NAME, task.name);
 		values.put(DatabaseContract.TaskTable.CATEGORY, task.category);
-		values.put(DatabaseContract.TaskTable.START_TIME, task.startTime);
-		values.put(DatabaseContract.TaskTable.END_TIME, task.endTime);
+		values.put(DatabaseContract.TaskTable.START_TIME, task.startTimeLong);
+		values.put(DatabaseContract.TaskTable.END_TIME, task.endTimeLong);
 
 		db.insert(DatabaseContract.TaskTable.TABLE_NAME, null, values); // TODO: do we want to use nullColumnHack?
 	}
@@ -162,12 +162,29 @@ public class DatabaseConnection {
 				DatabaseContract.TaskTable.CATEGORY,
 				category
 			);
+
+//			String sql2 = String.format(Locale.ENGLISH,
+//				"SELECT %s, %s FROM %s WHERE %s = '%s'",
+//				DatabaseContract.TaskTable.START_TIME,
+//				DatabaseContract.TaskTable.END_TIME,
+//				DatabaseContract.TaskTable.TABLE_NAME,
+//				DatabaseContract.TaskTable.CATEGORY,
+//				category);
+//
+//			Cursor c = db.rawQuery(sql2, null);
+//			while (c.moveToNext()) {
+//				long start = c.getLong(0);
+//				long end = c.getLong(1);
+//				System.out.println(String.format(Locale.ENGLISH, "START: %d, END: %d", start, end));
+//			}
+//			c.close();
+
 			Cursor cursor = db.rawQuery(sql, null);
 			cursor.moveToFirst();
 			int count = cursor.getInt(0);
-			int duration = cursor.getInt(1);
+			long duration = cursor.getLong(1);
+			System.out.println(duration);
 			cursor.close();
-
 			results.add(new Category(category, duration, count));
 		}
 
