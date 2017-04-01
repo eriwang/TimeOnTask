@@ -17,7 +17,7 @@ import java.util.Date;
 public class TaskActivity extends AppCompatActivity {
 	private TaskView taskView; // TODO: do I even need to extend it??
 	private TaskAdapter taskAdapter;
-	private RecyclerView.LayoutManager layoutManager;
+	private RecyclerView.LayoutManager layoutManager; //TODO: can't these be local to ctor??
 	private DividerItemDecoration dividerItemDecoration;
 
 	@Override
@@ -38,7 +38,7 @@ public class TaskActivity extends AppCompatActivity {
 
 		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
 
-		taskAdapter = new TaskAdapter(db.getTasks(category, new Date(6), new Date()));
+		taskAdapter = new TaskAdapter(db.getTasks(category, new Date(6), new Date(120, 4, 1)));
 		taskView.setAdapter(taskAdapter);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+// TODO: modularize into different classes
 public class DatabaseConnection {
 	private DatabaseOpenHelper dbHelper;
 
@@ -163,22 +164,6 @@ public class DatabaseConnection {
 				category
 			);
 
-//			String sql2 = String.format(Locale.ENGLISH,
-//				"SELECT %s, %s FROM %s WHERE %s = '%s'",
-//				DatabaseContract.TaskTable.START_TIME,
-//				DatabaseContract.TaskTable.END_TIME,
-//				DatabaseContract.TaskTable.TABLE_NAME,
-//				DatabaseContract.TaskTable.CATEGORY,
-//				category);
-//
-//			Cursor c = db.rawQuery(sql2, null);
-//			while (c.moveToNext()) {
-//				long start = c.getLong(0);
-//				long end = c.getLong(1);
-//				System.out.println(String.format(Locale.ENGLISH, "START: %d, END: %d", start, end));
-//			}
-//			c.close();
-
 			Cursor cursor = db.rawQuery(sql, null);
 			cursor.moveToFirst();
 			int count = cursor.getInt(0);
@@ -189,6 +174,39 @@ public class DatabaseConnection {
 		}
 
 		return results;
+	}
+
+	// TODO: are these the only params I want?
+	public void startTiming(String name, String category) {
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(DatabaseContract.TimingTable.TASK_NAME, name);
+		values.put(DatabaseContract.TimingTable.CATEGORY, category);
+		values.put(DatabaseContract.TimingTable.START_TIME, new Date().getTime());
+
+		db.insert(DatabaseContract.TimingTable.TABLE_NAME, null, values); // TODO: do we want to use nullColumnHack?
+	}
+
+	public void stopTiming() {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		String sql = String.format(Locale.ENGLISH,
+			"SELECT * FROM %s",
+			DatabaseContract.TimingTable.TABLE_NAME
+		);
+
+		// TODO: assert exactly one entry, be able to "recover"
+		Cursor cursor = db.rawQuery(sql, null);
+		cursor.moveToFirst();
+		String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TimingTable.TASK_NAME));
+		String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TimingTable.CATEGORY));
+		long startTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseContract.TimingTable.START_TIME));
+		cursor.close();
+
+		Task finishedTask = new Task(name, category, startTime, new Date().getTime());
+		addTask(finishedTask);
+
+		db.delete(DatabaseContract.TimingTable.TABLE_NAME, null, null);
 	}
 
 	public boolean isTimingActive() {

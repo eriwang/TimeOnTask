@@ -67,5 +67,5 @@
 		android:background="@color/pie_chart_blue"
 		android:textSize="48sp"
 		android:text="Start"
-		android:onClick="startTimer"/>
+		android:onClick="toggleTimer"/>
 </LinearLayout>

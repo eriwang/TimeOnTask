@@ -14,6 +14,7 @@ public class Task {
 	public long endTimeLong;
 	public long duration;
 
+	// TODO: Why not just pass in a Date instead of longs??
 	public Task(String _name, String _category, long _startTime, long _endTime) {
 		name = _name;
 		category = _category;

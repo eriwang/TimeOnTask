@@ -17,7 +17,6 @@ import com.timeontask.db.DatabaseConnection;
 import java.util.ArrayList;
 
 public class TimerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-	DatabaseConnection db;
 	Spinner categorySpinner;
 	Spinner taskNameSpinner;
 	EditText categoryEditText;
@@ -35,7 +34,10 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 		taskNameEditText = (EditText) findViewById(R.id.task_edit_text);
 		startButton = (Button) findViewById(R.id.start);
 		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
+
+
 		if (db.isTimingActive()) {
+			// TODO: method for this
 			startButton.setBackgroundColor(Color.BLUE);
 			startButton.setText("STOP");
 		}
@@ -55,6 +57,7 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 	// TODO: clean up
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		DatabaseConnection db  = new DatabaseConnection(getApplicationContext()); // TODO: make this a member somehow?
 		if (parent.getId() == R.id.category_spinner) {
 			String category = (String) parent.getItemAtPosition(position);
 			if (category.equals("New Category")) {
@@ -90,15 +93,31 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 	public void onNothingSelected(AdapterView<?> parent) {
 	}
 
-	public void startTimer(View view) {
+	public void toggleTimer(View view) {
+		DatabaseConnection db  = new DatabaseConnection(getApplicationContext()); // TODO: make this a member somehow?
+
+		if (!db.isTimingActive()) {
+			startTimer();
+		}
+		else {
+			stopTimer();
+		}
+	}
+
+	private void startTimer() {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
 			.setSmallIcon(R.mipmap.ic_launcher)
 			.setContentTitle("HELLO")
 			.setContentText("I NEED SLEEP");
 
+		// TODO: abstract out, add assert for UI
 		startButton.setBackgroundColor(Color.BLUE);
 		startButton.setText("STOP");
 
+		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
+		db.startTiming("test", "ur face");
+
+		// TODO: look again at this and see if i need it
 		Intent resultIntent = new Intent(this, this.getClass());
 		resultIntent.putExtra("TEST", "ASASDASDSADASDASDSADASDSA");
 
@@ -121,5 +140,17 @@ public class TimerActivity extends AppCompatActivity implements AdapterView.OnIt
 		startMain.addCategory(Intent.CATEGORY_HOME);
 		startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(startMain);
+	}
+
+	private void stopTimer() {
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager.cancel(0); // FIXME: magic number
+
+		DatabaseConnection db = new DatabaseConnection(getApplicationContext());
+		db.stopTiming();
+
+		// TODO: abstract out, add assert for UI
+		startButton.setBackgroundColor(getResources().getColor(R.color.pie_chart_blue));
+		startButton.setText("START");
 	}
 }
