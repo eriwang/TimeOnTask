@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import com.timeontask.R;
 import com.timeontask.db.DatabaseConnection;
 import com.timeontask.db.Task;
@@ -54,5 +55,8 @@ public class CategoryActivity extends AppCompatActivity {
 
 		categoryAdapter = new CategoryAdapter(db.getCategoriesInformation(db.getCategories()));
 		categoryView.setAdapter(categoryAdapter);
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 	}
 }
